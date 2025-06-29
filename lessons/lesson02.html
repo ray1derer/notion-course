@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>2강: 기본 블록 마스터하기 - 생각의 구조화</h1>
             <p>노션의 모든 콘텐츠는 '블록'으로 이루어져 있습니다. 이 강의에서는 가장 자주 사용되는 기본 블록들을 활용하여 문서를 체계적으로 구조화하는 방법을 배웁니다. 블록의 종류와 기능을 이해하면 생각을 명확하게 정리하고 전달하는 데 큰 도움이 됩니다.</p>

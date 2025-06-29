@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>18강: 모듈 3 복습 및 미니 프로젝트</h1>
             <p>모듈 3에서는 노션 데이터베이스의 핵심 기능인 속성, 보기, 관계형, 롤업, 템플릿을 심층적으로 다루었습니다. 이제 이 모든 지식을 통합하여 간단하지만 기능적인 '고객 관계 관리(CRM)' 시스템을 구축하는 미니 프로젝트를 진행합니다. 이 프로젝트를 통해 관계형 데이터베이스의 진정한 힘을 경험하고, 복잡한 정보를 효율적으로 관리하는 방법을 익히게 될 것입니다.</p>

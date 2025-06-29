@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>9강: 결정적 전환 - 데이터베이스 입문</h1>
             <p>노션의 진정한 힘은 '데이터베이스'에서 나옵니다. 이 강의는 노션 사용의 패러다임을 '워드 프로세서'에서 '데이터 관리자'로 전환하는 중요한 전환점입니다. 비구조화된 페이지와 구조화된 데이터베이스의 근본적인 차이를 이해하고, 데이터베이스의 핵심 구성 요소를 파악하여 노션의 무한한 가능성을 열어봅니다.</p>

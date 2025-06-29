@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>12강: 모듈 2 복습 및 미니 프로젝트</h1>
             <p>모듈 2에서는 노션 페이지를 시각적으로 디자인하고 구조화하는 방법을 배웠습니다. 이제 이 지식을 활용하여 기능적이고 시각적으로 매력적인 '콘텐츠 제작 대시보드'를 구축하는 미니 프로젝트를 진행합니다. 이 프로젝트를 통해 레이아웃 디자인과 데이터베이스 기술을 결합하는 방법을 익히게 될 것입니다.</p>

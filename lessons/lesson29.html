@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>29강: 노션 AI 활용하기</h1>
             <p>노션 AI는 인공지능의 힘을 빌려 콘텐츠 생성, 요약, 번역 등 다양한 작업을 자동화하고 생산성을 높일 수 있는 혁신적인 기능입니다. 이 강의에서는 노션 AI의 주요 기능을 살펴보고, 효과적인 AI 프롬프트 작성 원칙을 이해하며, 데이터베이스에 AI 자동 채우기 속성을 생성하여 워크플로우를 더욱 스마트하게 만드는 방법을 배웁니다.</p>

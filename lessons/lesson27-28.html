@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>27강 & 28강: 최종 프로젝트 2 - GTD로 생산성 마스터하기 (2부작)</h1>
             <p>GTD(Getting Things Done)는 David Allen이 개발한 세계적으로 유명한 생산성 방법론입니다. 이 2부작 강의에서는 GTD 워크플로우의 핵심 원칙을 이해하고, 이를 노션에서 구현하여 모든 할 일과 프로젝트를 효과적으로 관리하는 시스템을 구축하는 방법을 배웁니다. GTD 시스템을 통해 머릿속의 복잡한 생각들을 비우고, 명확한 다음 행동을 정의하여 스트레스 없이 생산성을 높일 수 있습니다.</p>

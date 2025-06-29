@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>5강: 필수 단축키와 마크다운 완전 정복</h1>
             <p>노션은 마우스 사용을 최소화하고 키보드만으로도 빠르고 효율적으로 작업할 수 있도록 다양한 단축키와 마크다운 문법을 지원합니다. 이 강의에서는 노션 사용의 생산성을 극대화할 수 있는 핵심 단축키와 마크다운 문법을 익히고, 이를 실제 작업에 적용하는 방법을 배웁니다.</p>

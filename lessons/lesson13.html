@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>13강: 데이터베이스 속성 심층 분석</h1>
             <p>노션 데이터베이스의 각 열은 '속성(Property)'이라고 불리며, 이 속성들은 데이터베이스에 저장되는 정보의 유형을 정의합니다. 이 강의에서는 노션이 제공하는 다양한 속성 유형을 심층적으로 분석하고, 각 속성이 데이터를 어떻게 저장하고 활용하는지 이해하여 데이터베이스를 더욱 효과적으로 설계하는 방법을 배웁니다.</p>

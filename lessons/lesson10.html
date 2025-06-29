@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>10강: 데이터베이스 보기 둘러보기 - 데이터 시각화</h1>
             <p>노션 데이터베이스의 강력함은 동일한 데이터를 다양한 방식으로 시각화하여 보여주는 '보기(View)' 기능에서 나옵니다. 이 강의에서는 6가지 기본 데이터베이스 보기를 살펴보고, 각 보기가 어떤 상황에서 유용하게 사용될 수 있는지 이해하며, 데이터를 효과적으로 시각화하는 방법을 배웁니다.</p>

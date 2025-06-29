@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>7강: 시각적 레이아웃 만들기 - 다단과 구분선</h1>
             <p>노션은 단순히 텍스트를 나열하는 것을 넘어, 정보를 시각적으로 구조화하고 배치할 수 있는 강력한 레이아웃 기능을 제공합니다. 이 강의에서는 페이지를 여러 단으로 나누고 구분선을 활용하여 정보를 깔끔하게 정리하고 가독성을 높이는 방법을 배웁니다.</p>

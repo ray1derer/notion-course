@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>19강: Notion Formula 2.0 입문</h1>
             <p>노션의 '수식(Formula)' 속성은 데이터베이스 내의 다른 속성 값을 기반으로 계산된 값을 표시할 수 있게 해주는 강력한 기능입니다. Notion Formula 2.0은 이전 버전에 비해 훨씬 유연하고 강력해진 구문과 편집기를 제공합니다. 이 강의에서는 새로운 수식 구문과 편집기에 익숙해지고, 점 표기법(dot notation)을 사용하여 함수를 연결하며, 리치 데이터(Rich Data) 개념을 파악하여 노션 데이터베이스를 프로그래밍하는 첫걸음을 내딛습니다.</p>

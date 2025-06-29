@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>14강: 보기 마스터하기 - 필터, 정렬, 그룹</h1>
             <p>노션 데이터베이스의 '보기(View)'는 단순히 데이터를 시각화하는 것을 넘어, 특정 조건에 맞는 데이터만 보여주거나, 원하는 순서로 정렬하고, 특정 속성을 기준으로 분류하여 보여주는 강력한 기능을 제공합니다. 이 강의에서는 필터, 정렬, 그룹 기능을 활용하여 데이터를 효율적으로 관리하고 분석하는 방법을 배웁니다.</p>

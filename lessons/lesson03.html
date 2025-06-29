@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>3강: 페이지 운영 - 중첩, 연결, 공유</h1>
             <p>노션은 단순히 페이지를 만드는 것을 넘어, 페이지들을 서로 연결하고 계층적으로 구성하며, 필요에 따라 다른 사람들과 공유할 수 있는 강력한 기능을 제공합니다. 이 강의에서는 페이지를 효율적으로 관리하고 협업하는 방법을 배웁니다.</p>

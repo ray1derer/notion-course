@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>8강: 페이지에 생명 불어넣기 - 아이콘, 커버, 미디어</h1>
             <p>노션 페이지는 단순한 문서가 아니라 시각적으로 매력적인 대시보드나 웹사이트처럼 꾸밀 수 있습니다. 이 강의에서는 아이콘, 커버 이미지, 그리고 다양한 미디어 블록을 활용하여 페이지에 개성을 부여하고 정보를 더욱 풍부하게 만드는 방법을 배웁니다.</p>

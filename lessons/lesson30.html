@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>30강: 협업 - 팀 위키 구축하기</h1>
             <p>노션은 개인의 생산성 도구를 넘어, 팀과 조직의 협업을 위한 강력한 플랫폼으로 활용될 수 있습니다. 이 강의에서는 노션의 협업 기능을 활용하여 팀 위키를 구축하고, 워크스페이스 멤버 관리, 권한 설정, 그리고 페이지 소유권 및 검증 기능을 통해 정보의 신뢰성과 최신성을 보장하는 방법을 배웁니다.</p>

@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>17강: 워크플로우 자동화 - 데이터베이스 템플릿</h1>
             <p>반복적인 작업을 줄이고 일관된 데이터 입력을 위해 노션 데이터베이스 템플릿을 활용하는 방법을 배웁니다. 데이터베이스 템플릿은 새로운 항목을 생성할 때 미리 정의된 속성 값과 페이지 콘텐츠를 자동으로 채워 넣어 워크플로우를 효율적으로 자동화하는 데 도움을 줍니다.</p>

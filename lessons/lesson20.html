@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>20강: 필수 수식 함수와 논리</h1>
             <p>Notion Formula 2.0은 다양한 내장 함수와 논리 연산자를 제공하여 데이터를 조작하고 조건에 따라 다른 결과를 반환할 수 있게 합니다. 이 강의에서는 가장 자주 사용되는 필수 수식 함수와 조건 논리를 익혀 데이터베이스를 더욱 동적으로 활용하는 방법을 배웁니다.</p>

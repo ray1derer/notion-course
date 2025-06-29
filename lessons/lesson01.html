@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>1강: 나의 첫 페이지 - 인터페이스와 블록 개념</h1>
             <p>노션은 단순한 메모 앱이 아닙니다. 모든 것을 담을 수 있는 유연한 워크스페이스입니다. 이 첫 강의에서는 노션의 기본 인터페이스를 탐색하고, 노션의 핵심 구성 요소인 '블록'의 개념을 이해하며, 첫 페이지를 만드는 방법을 배웁니다.</p>

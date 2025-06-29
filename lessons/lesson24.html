@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>24강: 모듈 4 복습 및 미니 프로젝트</h1>
             <p>모듈 4에서는 Notion Formula 2.0의 고급 기능과 노션 자동화, 그리고 외부 서비스와의 연동을 통한 확장 가능성을 탐구했습니다. 이제 이 모든 지식을 결합하여 간단하지만 실용적인 '청구서 추적기' 데이터베이스를 구축하는 미니 프로젝트를 진행합니다. 이 프로젝트를 통해 고급 수식과 자동화 개념을 실제 워크플로우에 적용하는 방법을 익히게 될 것입니다.</p>

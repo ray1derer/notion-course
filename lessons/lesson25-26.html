@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>25강 & 26강: 최종 프로젝트 1 - PARA 메소드로 '세컨드 브레인' 구축하기 (2부작)</h1>
             <p>이 최종 프로젝트는 노션의 모든 기능을 통합하여 개인의 삶과 업무를 총체적으로 관리하는 '라이프 운영체제(Life Operating System)'를 구축하는 데 중점을 둡니다. PARA 메소드는 정보와 작업을 체계적으로 정리하고 관리하는 강력한 프레임워크입니다. 이 2부작 강의에서는 PARA 메소드의 원칙을 이해하고, 이를 노션에서 구현하여 자신만의 '세컨드 브레인'을 구축하는 방법을 배웁니다.</p>

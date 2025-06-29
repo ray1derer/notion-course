@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>16강: 데이터 집계하기 - 롤업 속성</h1>
             <p>관계형 속성을 통해 데이터베이스를 연결했다면, 이제 연결된 데이터베이스의 정보를 가져와 요약하고 계산할 수 있습니다. '롤업(Rollup)' 속성은 이러한 데이터 집계 기능을 제공하여, 복잡한 정보를 한눈에 파악하고 의사결정을 돕는 강력한 도구입니다. 이 강의에서는 롤업 속성을 사용하여 연결된 데이터의 합계, 평균, 비율 등을 계산하는 방법을 배웁니다.</p>

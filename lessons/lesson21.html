@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>21강: let, map, filter를 활용한 고급 수식</h1>
             <p>Notion Formula 2.0의 진정한 강력함은 <code>let()</code>, <code>map()</code>, <code>filter()</code>와 같은 고급 함수들을 활용하여 복잡한 논리를 구현하고 데이터를 동적으로 조작하는 데 있습니다. 이 강의에서는 이러한 함수들을 사용하여 수식을 단순화하고, 관계형으로 연결된 데이터베이스의 정보를 효율적으로 처리하는 방법을 배웁니다.</p>

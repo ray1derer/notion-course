@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>11강: 고급 블록 활용 - 버튼, 동기화 블록, 목차</h1>
             <p>노션은 단순한 텍스트 블록을 넘어, 워크플로우를 자동화하고 콘텐츠를 효율적으로 관리할 수 있는 고급 블록들을 제공합니다. 이 강의에서는 '버튼', '동기화 블록', '목차'와 같은 유용한 블록들을 활용하여 노션 사용 경험을 한 단계 업그레이드하는 방법을 배웁니다.</p>

@@ -9,8 +9,24 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- 사이드바 내용은 index.html에서 동적으로 로드 -->
+            <div id="sidebar-content"></div>
         </aside>
+
+    <script>
+        fetch('../assets/sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-content').innerHTML = data;
+                // 현재 페이지에 해당하는 사이드바 링크 활성화
+                const currentPath = window.location.pathname.split('/').pop();
+                const lessonLinks = document.querySelectorAll('.lesson-link');
+                lessonLinks.forEach(link => {
+                    if (link.getAttribute('href').split('/').pop() === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+    </script>
         <main class="main-content">
             <h1>22강: 노션 자동화 입문</h1>
             <p>노션은 단순한 문서 및 데이터베이스 도구를 넘어, 반복적인 작업을 자동화하여 생산성을 크게 향상시킬 수 있는 기능을 제공합니다. 이 강의에서는 노션의 네이티브 자동화 기능을 사용하여 데이터베이스 항목의 속성을 자동으로 변경하거나, 특정 이벤트 발생 시 알림을 보내는 등 간단한 워크플로우를 자동화하는 방법을 배웁니다.</p>
